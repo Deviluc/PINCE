@@ -29,20 +29,6 @@ fi
 tar -zxvf gdb-8.2.tar.gz
 cd gdb-8.2
 
-# Dependencies required for compiling GDB
-sudo apt-get install python3-dev
-sudo apt-get install gcc g++
-if [ $? -gt 0 ]; then
-    sudo apt-get install software-properties-common
-    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-    sudo apt-get update
-    sudo apt-get install gcc g++
-    if [ $? -gt 0 ]; then
-        echo "Failed to install gcc or g++, aborting..."
-        exit 1
-    fi
-fi
-
 CC=gcc CXX=g++ ./configure --prefix=$(pwd) --with-python=python3 && make && sudo make -C gdb install
 if [ ! -e bin/gdb ] ; then
     echo "Failed to install GDB, restart the installation process"
